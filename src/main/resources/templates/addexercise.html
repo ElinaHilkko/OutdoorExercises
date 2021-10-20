@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Outdoor exercises</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Add exercise</h1>
+	<div>
+		<form th:object="${exercise}" th:action="@{saveexercise}" action="#" method="post">
+		    		
+		    <label for="deplist">Person</label>
+			<select id="deplist" th:field="*{person}" class="form-control">
+       		<option th:each="person: ${persons}" th:value="${person.personId}" th:text="${person.name}"></option>
+    		</select>
+    		<div style="clear: both; display: block; height: 10px;"></div>  	
+
+		  	<label for="sport">Sport</label>
+			<input type="text" th:field="*{sport}" />
+			<p th:if="${#fields.hasErrors('sport')}" th:errors="*{sport}">Sport error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="date">Date</label>
+			<input type="text" th:field="*{date}" />
+			<p th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="minute">Minute</label>
+			<input type="text" th:field="*{minute}" />
+			<p th:if="${#fields.hasErrors('minute')}" th:errors="*{minute}">Minute error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="distance">Distance</label>
+			<input type="text" th:field="*{distance}" />
+			<p th:if="${#fields.hasErrors('distance')}" th:errors="*{distance}">Distance error</p>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>

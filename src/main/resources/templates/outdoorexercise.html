@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Outdoor exercises</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+	</form>
+	<h1>Outdoor Exercises</h1>
+<table>
+		<tr>
+		    <th>Person</th>    
+		    <th>Sport</th>
+		    <th>Date</th>
+		    <th>Time (min)</th>
+		    <th>Distance (km)</th>
+		</tr>  
+    	<tr th:each = "exercise : ${exercises}">
+     	    <td th:text="${exercise.person.name}"></td>	 	
+    		<td th:text="${exercise.sport}"></td>
+    		<td th:text="${exercise.date}"></td>
+    		<td th:text="${exercise.minute}"></td>
+    		<td th:text="${exercise.distance}"></td>
+ 	        <td><a th:href="@{/deleteexercise/{exerciseId}(exerciseId=${exercise.exerciseId})}">Delete</a></td>
+ 		    <td><a th:href="@{/editexercise/{exerciseId}(exerciseId=${exercise.exerciseId})}">Edit</a></td>
+ 	<!--  	<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td> 
+ 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Edit</a></td> -->	
+ 			<!-- hasAuthority/hasRole, erona milloin otettu käyttöön springbootissa --> 		
+    	</tr>
+     </table>
+     <br><a href="/addexercise">Add exercise</a>
+     <br>
+     <br><a href="/showpersons">Show persons</a>
+</body>
+</html>

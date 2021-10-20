@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Outdoor exercises</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Persons</h1>
+    <table>
+		<tr>
+		    <th>Person</th>
+		</tr>		  
+    	<tr th:each = "person : ${persons}">
+     		<td th:text="${person.name}"></td>   	
+ 			<!--<td><a th:href="@{/deleteperson/{personId}(personId=${person.personId})}">Delete</a></td> POISTA -->
+ 	        <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deleteperson/{personId}(personId=${person.personId})}" class="btn btn-xs btn-danger">Delete</a></td> 
+    	</tr>
+     </table>
+     <a sec:authorize="hasAuthority('ADMIN')" href="/addperson" class="btn btn-xs btn-danger">Add person</a>
+     <br>
+     <a href="/back">Back</a>	
+</body>
+</html>
