@@ -24,10 +24,7 @@
     		<td th:text="${exercise.minute}"></td>
     		<td th:text="${exercise.distance}"></td>
  	        <td><a th:href="@{/deleteexercise/{exerciseId}(exerciseId=${exercise.exerciseId})}">Delete</a></td>
- 		    <td><a th:href="@{/editexercise/{exerciseId}(exerciseId=${exercise.exerciseId})}">Edit</a></td>
- 	<!--  	<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td> 
- 			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Edit</a></td> -->	
- 			<!-- hasAuthority/hasRole, erona milloin otettu käyttöön springbootissa --> 		
+ 		    <td><a th:href="@{/editexercise/{exerciseId}(exerciseId=${exercise.exerciseId})}">Edit</a></td>		
     	</tr>
      </table>
      <br><a href="/addexercise">Add exercise</a>

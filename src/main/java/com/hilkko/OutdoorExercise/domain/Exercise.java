@@ -8,11 +8,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Exercise {
@@ -31,11 +30,21 @@ public class Exercise {
 	private double distance;
 	
 	@ManyToOne
-	@JsonIgnore
+	@JsonIgnoreProperties("exercises")
 	@JoinColumn(name = "personId")
 	private Person person;
 	
 	public Exercise() {
+	}
+
+	public Exercise(@Size(min = 2, max = 30) String sport,
+			@Pattern(regexp = "^(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)\\d{2})$") String date,
+			@Min(1) @Max(1000) int minute, @Min(0) @Max(1000) double distance) {
+		super();
+		this.sport = sport;
+		this.date = date;
+		this.minute = minute;
+		this.distance = distance;
 	}
 
 	public Exercise(@Size(min = 2, max = 30) String sport,
@@ -102,5 +111,4 @@ public class Exercise {
 		return "Exercise [exerciseId=" + exerciseId + ", sport=" + sport + ", date=" + date + ", minute=" + minute
 				+ ", distance=" + distance + ", person=" + person + "]";
 	}
-	
 }

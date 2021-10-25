@@ -6,16 +6,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hilkko.OutdoorExercise.domain.Exercise;
@@ -40,23 +36,11 @@ public class RestExerciseController {
 		return eRepository.findById(exerciseId);
 	}
 	
-	@PostMapping("/addexercise")
-	public String addExerciseRest(@RequestBody Exercise newExercise) {
-		eRepository.save(newExercise);
-		return newExercise.toString();
+	@PostMapping("/exercises")
+	public List<Exercise> addOrEditExerciseRest(@Valid @RequestBody Exercise exercise) {
+		eRepository.save(exercise);
+		return (List<Exercise>) eRepository.findAll();
 	}
-	
-	@PutMapping("/exercise/{exerciseId}")
-	public Optional<Exercise> editExerciseRest(@RequestBody Exercise newExercise, @PathVariable("exerciseId") Long exerciseId){
-	    return eRepository.findById(exerciseId)
-	      .map(exercise -> {
-	    	  exercise.setSport(newExercise.getSport());
-	    	  exercise.setDate(newExercise.getDate());
-	    	  exercise.setMinute(newExercise.getMinute());
-	    	  exercise.setDistance(newExercise.getDistance());
-	        return eRepository.save(exercise);
-	      });
-	  }
 
 	@DeleteMapping("/exercise/{exerciseId}")
 	void deleteExerciseRest(@PathVariable("exerciseId") Long exerciseId){
@@ -74,21 +58,11 @@ public class RestExerciseController {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@PostMapping(value = "/addperson")
-	public String addPersonRest(@RequestBody Person newPerson) {
-		pRepository.save(newPerson);
-		return newPerson.toString();
+	@PostMapping("/persons")
+	public List<Person> addOrEditPersonRest(@Valid @RequestBody Person person) {
+		pRepository.save(person);
+		return (List<Person>) pRepository.findAll();
 	}
-	
-	@PreAuthorize("hasAuthority('ADMIN')")
-	@PutMapping("/person/{personId}")
-	public Optional<Person> editPersonRest(@RequestBody Person newPerson, @PathVariable("personId") Long personId){
-	    return pRepository.findById(personId)
-	      .map(person -> {
-	    	  person.setName(newPerson.getName());
-	        return pRepository.save(person);
-	      });
-	  }
 
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@DeleteMapping("/person/{personId}")

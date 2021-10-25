@@ -25,14 +25,15 @@ public class OutdoorExerciseApplication {
 	@Bean
 	public CommandLineRunner exercisesDemo(ExerciseRepository eRepository, PersonRepository pRepository, UserRepository uRepository) {
 		return (args) -> {
-			System.out.println("save a few example data");
+			System.out.println("Save example data");
 			
 			Stream.of("Maija","Matti","Kati").forEach(name -> {
 				pRepository.save(new Person(name));
 			});
 			eRepository.save(new Exercise ("hiihto", "20.2.2021", 45, 9.5, pRepository.findByName("Maija").get(0)));
 			eRepository.save(new Exercise ("juoksu", "5.3.2021", 30, 8.9, pRepository.findByName("Matti").get(0)));
-			System.out.println("fetch all exercises");
+			eRepository.save(new Exercise ("pyöräily", "15.4.2021", 55, 15, pRepository.findByName("Kati").get(0)));
+			
 			for (Exercise exercise : eRepository.findAll()) {
 				System.out.println(exercise.toString());
 			}

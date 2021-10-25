@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Person {
@@ -21,8 +22,9 @@ public class Person {
 	@Size(min=2, max=30)
 	private String name;
 	
-	@JsonIgnore
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "person")
+	@JsonIgnoreProperties("person")
 	private List<Exercise> exercises;
 	
 	public Person() {

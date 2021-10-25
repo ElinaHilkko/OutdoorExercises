@@ -17,28 +17,26 @@ import com.hilkko.OutdoorExercise.web.UserDetailServiceImpl;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UserDetailServiceImpl userDetailsService;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-		//.authorizeRequests().antMatchers("/css**").permitAll()
-		//.and()
 		.authorizeRequests()
-		   .anyRequest().authenticated()
-		   .and()
+		.anyRequest().authenticated()
+		.and()
 		.formLogin()
-		   .defaultSuccessUrl("/outdoorexercise", true)
-		   .permitAll()
-		   .and()
+		.defaultSuccessUrl("/outdoorexercise", true)
+		.permitAll()
+		.and()
 		.logout()
-		   .permitAll()
-	    .and()
-	    .httpBasic()
-	    .and()
-	    .cors().and().csrf().disable();
-;
+		.permitAll()
+		.and()
+		.httpBasic()
+		.and()
+		.cors().and().csrf().disable();
+		;
 	}
-	
+
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
