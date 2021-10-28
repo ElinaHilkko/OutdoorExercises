@@ -22,18 +22,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-		.anyRequest().authenticated()
-		.and()
+			.anyRequest().authenticated()
+			.and()
 		.formLogin()
-		.defaultSuccessUrl("/outdoorexercise", true)
-		.permitAll()
-		.and()
+			.defaultSuccessUrl("/outdoorexercise", true)
+			.permitAll()
+			.and()
 		.logout()
-		.permitAll()
-		.and()
+			.permitAll()
+			.and()
 		.httpBasic()
-		.and()
-		.cors().and().csrf().disable();
+			.and()
+			.cors().and().csrf().disable();
 		;
 	}
 

@@ -59,7 +59,7 @@ public class RestExerciseController {
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/persons")
-	public List<Person> addOrEditPersonRest(@Valid @RequestBody Person person) {
+	public List<Person> addPersonRest(@Valid @RequestBody Person person) {
 		pRepository.save(person);
 		return (List<Person>) pRepository.findAll();
 	}

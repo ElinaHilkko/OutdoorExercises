@@ -53,28 +53,28 @@ public class ExerciseController {
 		return "redirect:../outdoorexercise";
 	}
 	
-	@RequestMapping("/editexercise/{exerciseId}")
+	@GetMapping("/editexercise/{exerciseId}")
 	public String editExercise(@PathVariable("exerciseId") Long exerciseId, Model model) {
 	model.addAttribute("exercise", eRepository.findById(exerciseId));
 	model.addAttribute("persons", pRepository.findAll());
 	return "editexercise";
 	}
 	
-	@GetMapping(value = "/showpersons")
+	@GetMapping("/showpersons")
 	public String showPerson(Model model) {
 		model.addAttribute("persons", pRepository.findAll());
 		return "showpersons";
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping(value = "/addperson")
+	@GetMapping("/addperson")
 	public String addPerson(Model model) {
 		Person person = new Person();
 		model.addAttribute("person", person);
 		return "addperson";
 	}
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@PostMapping(value = "/saveperson")
+	@PostMapping("/saveperson")
 	public String save(@Valid Person person, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return "addperson";
@@ -84,7 +84,7 @@ public class ExerciseController {
 	}
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-	@GetMapping(value = "/deleteperson/{personId}")
+	@GetMapping("/deleteperson/{personId}")
 	public String deletePerson(@PathVariable("personId") Long personId, Model model) {
 		pRepository.deleteById(personId);
 		return "redirect:../showpersons";
